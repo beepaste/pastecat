@@ -1,0 +1,28 @@
+#!/bin/bash
+
+case "$1" in
+start)
+   /usr/bin/pastecat.py &>> /var/log/pastecat.log &
+   echo $!>/var/run/pastecat.pid
+   ;;
+stop)
+   kill `cat /var/run/pastecat.pid`
+   rm /var/run/pastecat.pid
+   ;;
+restart)
+   $0 stop
+   $0 start
+   ;;
+status)
+   if [ -e /var/run/pastecat.pid ]; then
+      echo pastecat is running, pid=`cat /var/run/pastecat.pid`
+   else
+      echo pastecat is NOT running
+      exit 1
+   fi
+   ;;
+*)
+   echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0
