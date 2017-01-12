@@ -13,10 +13,11 @@ from thread import *
 
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 99 # Some Open port on server
+PASTEBIN = 'https://beepaste.ir/api/create'
 
 def send_req(text="null"):
     if text != "null":
-        r = requests.post("https://beepaste.ir/api/create", data={"text":"%s" %(text)}, verify=False) # You can use stikked pastebin or my version of it!
+        r = requests.post(PASTEBIN, data={"text":"%s" %(text)}, verify=False) # You can use stikked pastebin or my version of it!
         return r.text.encode("utf-8")[:-1]
     else:
         return "Sorry, You Must Enter Something To Paste."
