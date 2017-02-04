@@ -12,7 +12,7 @@ import socket, sys
 from thread import *
 
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
-PORT = 99 # Some Open port on server
+PORT = 1111 # Some Open port on server
 PASTEBIN = 'https://beepaste.ir/api/create'
 
 def send_req(text="null"):
