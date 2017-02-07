@@ -7,7 +7,7 @@ TODO:
     2.add timeout
 """
 
-import socket, sys, logging
+import socket, sys, logging, requests
 from thread import *
 
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
