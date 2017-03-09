@@ -27,13 +27,13 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-def sendToLog(text="null"):
-    if text != "null":
+def sendToLog(text=None):
+    if text:
         logger.info(text)
 
 
-def send_req(text="null"):
-    if text != "null":
+def send_req(text=None):
+    if text:
         r = requests.post(PASTEBIN, data={"text": "%s" % (text)}, verify=False)  # You can use stikked pastebin or my version of it!
         return r.text.encode("utf-8")[:-1]
     else:
