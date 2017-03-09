@@ -17,9 +17,13 @@ Pipe Your Command to `nc host 1111` To Send The Output
 NOTE: You can use pastecat without nc using the following alias:
 
 Bash:
-    `alias bp="(exec 3<>/dev/tcp/beepaste.ir/1111; cat >&3; cat <&3; exec 3<&-)"`
+
+`alias bp="(exec 3<>/dev/tcp/beepaste.ir/1111; cat >&3; cat <&3; exec 3<&-)"`
+
 Fish:
-    alias bp=
+
+alias bp=
+
 usage:
 
 `echo this is a test! | bp`
