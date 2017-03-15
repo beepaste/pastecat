@@ -9,6 +9,7 @@ TODO:
 import logging
 import socket
 import sys
+import json
 
 import requests
 
@@ -16,7 +17,8 @@ from _thread import start_new_thread
 
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
-PASTEBIN = 'https://beepaste.ir/api/create'
+PASTEBIN = 'https://beepaste.ir/api'
+apikey = '' # your api-key
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -34,8 +36,10 @@ def sendToLog(text=None):
 
 def send_req(text=None):
     if text:
-        r = requests.post(PASTEBIN, data={"text": "%s" % (text)}, verify=False)  # You can use stikked pastebin or my version of it!
-        return r.text.encode("utf-8")[:-1]
+        data = {'api-key': apikey, 'pasteRaw': text, 'pasteLanguage': 'text'}
+        r = requests.post(PASTEBIN, json=data, verify=False)  # You can use beepaste pastebin or my version of it!
+        d = json.loads(r.text)
+        return d['url']
     else:
         return "Sorry, You Must Enter Something To Paste."
 
@@ -65,11 +69,12 @@ def clientthread(conn, ipaddr):
     total_data = []
     while 1:
         data = conn.recv(1024)
-        total_data.append(data)
         if not data:
             break
+        total_data.append(data.decode('utf-8'))
+    print(total_data)
     reply = send_req(''.join(total_data))
-    conn.sendall(reply + '\n')
+    conn.sendall((reply + '\n').encode('utf-8'))
     # print ("Send " + reply + " to " +  ipaddr)
     sendToLog("Send " + reply + " to " + ipaddr)
     conn.close()
