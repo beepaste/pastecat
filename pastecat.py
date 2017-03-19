@@ -17,8 +17,8 @@ from _thread import start_new_thread
 
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
-PASTEBIN = 'https://beepaste.ir/api'
-apikey = '' # your api-key
+PASTEBIN = 'https://beepaste.io/api'
+apikey = 'YWRlMGJjOGQ0OTIyY2Q0MWUyMTIwNzRk' # your api-key
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -72,7 +72,6 @@ def clientthread(conn, ipaddr):
         if not data:
             break
         total_data.append(data.decode('utf-8'))
-    print(total_data)
     reply = send_req(''.join(total_data))
     conn.sendall((reply + '\n').encode('utf-8'))
     # print ("Send " + reply + " to " +  ipaddr)
