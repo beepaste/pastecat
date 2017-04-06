@@ -1,8 +1,8 @@
 import asyncio
-from socket import (AF_INET, SO_REUSEADDR, SOCK_STREAM, SOL_SOCKET, socket)
+import json
+from socket import AF_INET, SO_REUSEADDR, SOCK_STREAM, SOL_SOCKET, socket
 
 import requests
-import json
 
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
@@ -23,6 +23,16 @@ async def echo_server(address):
         print('connection from', addr)
         loop.create_task(echo_handler(client))
 
+
+# TODO: better to do this with aiohttp?
+def get_response_text(text):
+    response = requests.post(PASTEBIN, json={'api-key': apikey, 'pasteRaw': text, 'pasteLanguage': 'text'})
+    if response.status_code == 201:
+        return json.loads(response.text)['url'] + "\n"
+    else:
+        return "An error accoured. Please try again later. \n"
+
+
 async def echo_handler(client):
     with client:
         total_data = []
@@ -32,7 +42,8 @@ async def echo_handler(client):
                 break
             total_data.append(data.decode('utf-8'))
         text = ''.join(total_data)
-        await loop.sock_sendall(client, (json.loads(requests.post(PASTEBIN, json={'api-key': apikey, 'pasteRaw': text, 'pasteLanguage': 'text'}).text)['url'] + '\n').encode('utf-8'))
+        to_send = bytes(get_response_text(text).encode('utf-8'))
+        await loop.sock_sendall(client, to_send)
     print('Connection Closed!')
 
 loop.create_task(echo_server((HOST, PORT)))
