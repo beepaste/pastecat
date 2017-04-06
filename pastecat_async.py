@@ -7,7 +7,7 @@ import requests
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
 PASTEBIN = 'https://beepaste.io/api'
-apikey = 'YWRlMGJjOGQ0OTIyY2Q0MWUyMTIwNzRk'
+API_KEY = 'YWRlMGJjOGQ0OTIyY2Q0MWUyMTIwNzRk'
 
 
 loop = asyncio.get_event_loop()
@@ -26,7 +26,7 @@ async def echo_server(address):
 
 # TODO: better to do this with aiohttp?
 def get_response_text(text):
-    response = requests.post(PASTEBIN, json={'api-key': apikey, 'pasteRaw': text, 'pasteLanguage': 'text'})
+    response = requests.post(PASTEBIN, json={'api-key': API_KEY, 'pasteRaw': text, 'pasteLanguage': 'text'})
     if response.status_code == 201:
         return json.loads(response.text)['url'] + "\n"
     else:
