@@ -7,7 +7,7 @@ import requests
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
 PASTEBIN = 'https://beepaste.io/api'
-API_KEY = 'YWRlMGJjOGQ0OTIyY2Q0MWUyMTIwNzRk'
+API_KEY = ''
 
 
 loop = asyncio.get_event_loop()
