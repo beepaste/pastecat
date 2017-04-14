@@ -18,7 +18,7 @@ NOTE: You can use pastecat without nc using the following alias:
 
 Bash:
 
-`alias bp="(exec 3<>/dev/tcp/ncbeepaste.io/1111; cat >&3; cat <&3; exec 3<&-)"`
+`alias bp="(exec 3<>/dev/tcp/nc.beepaste.io/1111; cat >&3; cat <&3; exec 3<&-)"`
 
 Fish:
 
