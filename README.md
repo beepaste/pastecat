@@ -22,15 +22,11 @@ Pipe Your Command to `nc host 1111` To Send The Output
 
 NOTE: You can use pastecat without nc using the following alias:
 
-Bash:
+Bash, ZSH:
 
 `alias bp="(exec 3<>/dev/tcp/nc.beepaste.io/1111; cat >&3; cat <&3; exec 3<&-)"`
 
-Fish:
-
-alias bp=
-
-usage:
+Usage:
 
 `echo this is a test! | bp`
 
