@@ -15,6 +15,7 @@ import requests
 
 from _thread import start_new_thread
 
+# Host Configuration
 HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
 PASTEBIN = 'https://beepaste.io/api'
