@@ -3,16 +3,16 @@
 """
 TODO:
     1.check if user connected with any data ( if no, then disconnect).
-    2.add timeout
+    2.add timeout (should be fixed now)
 """
 
 import logging
 import socket
 import sys
 import json
-
 import requests
 
+from time import time, localtime
 from _thread import start_new_thread
 
 # Host Configuration
@@ -20,6 +20,7 @@ HOST = '0.0.0.0'   # Symbolic name meaning all available interfaces
 PORT = 1111  # Some Open port on server
 PASTEBIN = 'https://beepaste.io/api'
 apikey = 'YWRlMGJjOGQ0OTIyY2Q0MWUyMTIwNzRk' # your api-key
+time_out = 5 # Mins
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -29,6 +30,7 @@ formatter = logging.Formatter('%(asctime)s - %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+deadline = time() + 60.0
 
 def sendToLog(text=None):
     if text:
@@ -69,9 +71,12 @@ def clientthread(conn, ipaddr):
     # Receiving from client
     total_data = []
     while 1:
+        while not data:
+            if time() >= deadline:
+                conn.close()
+            s.settimeout(deadline - time())
         data = conn.recv(1024)
-        if not data:
-            break
+
         total_data.append(data.decode('utf-8'))
     reply = send_req(''.join(total_data))
     conn.sendall((reply + '\n').encode('utf-8'))
