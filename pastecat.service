@@ -1,0 +1,12 @@
+[Unit]
+Description=PasteCat server for BeePaste
+
+[Service]
+Type=simple
+Restart=on-abort
+PIDFile=/var/run/pastecat.pid
+ExecStart=/usr/bin/pastecat.py
+
+[Install]
+WantedBy=multi-user.target
+Alias=pastecat.service
