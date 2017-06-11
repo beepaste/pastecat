@@ -8,8 +8,6 @@ if [[ -f /etc/redhat-release ]]; then
 
 echo 'Installing Pastecat For RedHat Release: \n';
 
-fi
-
 elif [[ -f /etc/debian_version ]]; then
 
     echo 'Installing Pastecat For Debian Release: \n';
