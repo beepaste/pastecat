@@ -35,6 +35,6 @@ usage:
 `echo this is a test! | bp`
 
 
-#Example:
+# Example:
 
 `uname -a | nc nc.beepaste.io 1111`
